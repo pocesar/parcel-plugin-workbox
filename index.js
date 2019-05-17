@@ -6,6 +6,11 @@ const uglifyJS = require('uglify-js')
 
 module.exports = bundle => {
   bundle.on('buildEnd', async () => {
+    if (process.env.NODE_ENV !== 'production') {
+      logger.log('Production not enabled, skipping workbox')
+      return
+    }
+
     // output path
     let pathOut = bundle.options.outDir
 
